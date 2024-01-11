@@ -1,16 +1,30 @@
+import asyncio
 import discord
 from discord.ext import commands
+import config
 
-TOKEN = 'YOUR_BOT_TOKEN'
+intents = discord.Intents.all()
+intents.message_content = True
 
-bot = commands.Bot(command_prefix='!')
+bot = commands.Bot(command_prefix='/', intents=intents)
 
 @bot.event
 async def on_ready():
-    print(f'{bot.user} hat sich mit Discord verbunden!')
+    print('Bot is ready')
 
-@bot.command(name='hallo', help='Antwortet mit Hallo Welt!')
-async def hallo(ctx):
-    await ctx.send('Hallo Welt!')
+@bot.event
+async def on_raw_reaction_add(reaction: discord.RawReactionActionEvent):
+    pass
 
-bot.run(TOKEN)
+
+async def load():
+    await bot.load_extension("cogs.random")
+
+
+async def main():
+    if __name__ == '__main__':
+        await load()
+        await bot.start(config.getBotKey())
+
+
+asyncio.run(main())
