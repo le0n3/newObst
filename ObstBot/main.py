@@ -18,7 +18,7 @@ async def on_raw_reaction_add(reaction: discord.RawReactionActionEvent):
 
 
 async def load():
-    await bot.load_extension("cogs.random")
+    await bot.load_extension("Cogs.random")
 
 
 async def main():
