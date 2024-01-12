@@ -40,6 +40,7 @@ def decimal_to_binary(decimal):
 
 def iss():
     try:
+
         url = "http://api.open-notify.org/iss-now.json"
         response = urllib.request.urlopen(url)
         result = json.loads(response.read())
@@ -84,7 +85,7 @@ def wether():
 
     try:
 
-        if weather_data['cod'] == 200:
+        if weather_data["cod"] == 200:
             temp_in_kelvin = (weather_data['main']['temp'])
             temp_in_celsius = round(temp_in_kelvin - 273.15, 2)
             pressure = weather_data['main']['pressure']
