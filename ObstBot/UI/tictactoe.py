@@ -1,14 +1,8 @@
-# This example requires the 'message_content' privileged intent to function.
-
 from typing import List
-from discord.ext import commands
 import discord
-import config
+from discord import ui
 
-# Defines a custom button that contains the logic of the game.
-# The ['TicTacToe'] bit is for type hinting purposes to tell your IDE or linter
-# what the type of `self.view` is. It is not required.
-class TicTacToeButton(discord.ui.Button['TicTacToe']):
+class TicTacToeButton(ui.Button['TicTacToe']):
     def __init__(self, x: int, y: int):
         # A label is required, but we don't need one so a zero-width space is used
         # The row parameter tells the View which row to place the button under.
@@ -58,9 +52,7 @@ class TicTacToeButton(discord.ui.Button['TicTacToe']):
 
         await interaction.response.edit_message(content=content, view=view)
 
-
-# This is our actual board View
-class TicTacToe(discord.ui.View):
+class TicTacToe(ui.View):
     # This tells the IDE or linter that all our children will be TicTacToeButtons
     # This is not required
     children: List[TicTacToeButton]
@@ -120,26 +112,3 @@ class TicTacToe(discord.ui.View):
 
         return None
 
-
-class TicTacToeBot(commands.Bot):
-    def __init__(self):
-        intents = discord.Intents.default()
-        intents.message_content = True
-
-        super().__init__(command_prefix=commands.when_mentioned_or('$'), intents=intents)
-
-    async def on_ready(self):
-        print(f'Logged in as {self.user} (ID: {self.user.id})')
-        print('------')
-
-
-bot = TicTacToeBot()
-
-
-@bot.command()
-async def tic(ctx: commands.Context):
-    """Starts a tic-tac-toe game with yourself."""
-    await ctx.send('Tic Tac Toe: X goes first', view=TicTacToe())
-
-
-bot.run(config.getBotKey())
