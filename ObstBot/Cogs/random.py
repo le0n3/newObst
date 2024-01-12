@@ -1,7 +1,8 @@
 import discord
 from discord.ext import commands
 import logging
-from ObstBot.Helper import *
+from Helper import *
+from UI import tictactoe
 
 # ToDo Random Commands
 #	 randomRGB
@@ -68,6 +69,13 @@ class Random(commands.Cog):
         await ctx.send(joke(), delete_after=15)
         await ctx.message.delete()
         logging.info(f"Joke wurde ausgeführt")
+
+    @commands.command(brief='Question')
+    async def Question(self,ctx: discord.ext.commands):
+        await ctx.send("Modal",view= tictactoe.AddZitatForam)
+
+
+
 
 
 
