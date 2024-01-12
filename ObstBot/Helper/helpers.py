@@ -4,6 +4,7 @@ import urllib.request
 import googletrans
 import requests
 import config
+import logging
 
 
 def markdown_code_block(code, language):
@@ -11,39 +12,46 @@ def markdown_code_block(code, language):
 
 
 def translate_description(description):
-    translator = googletrans.Translator()
-    return translator.translate(description, dest='de', src='en').text
+    try:
+        translator = googletrans.Translator()
+        return translator.translate(description, dest='de', src='en').text
+    except Exception as e:
+        logging.error(f"Fehler bei der Googel ÜBersetzung\n {e}")
+        return description
+
 
 
 def random_rgb():
     r = random.randint(0, 255)
     g = random.randint(0, 255)
     b = random.randint(0, 255)
-    return 'rgb({}, {}, {})'.format(r, g, b)
+    return markdown_code_block('rgb({}, {}, {})'.format(r, g, b), "JS")
 
 
 def random_hex():
     r = random.randint(0, 255)
     g = random.randint(0, 255)
     b = random.randint(0, 255)
-    return '#{0:02x}{1:02x}{2:02x}'.format(r, g, b)
+    return markdown_code_block('#{0:02x}{1:02x}{2:02x}'.format(r, g, b),"JS")
 
 
 def decimal_to_hex(decimal_number):
     hex_number = hex(decimal_number).replace("0x", "")
-    return markdown_code_block(f"hex({hex_number}", "")
+    return markdown_code_block(f"hex({hex_number}", "JS")
 
 
 def decimal_to_binary(decimal):
-    return markdown_code_block(bin(decimal).replace("0b", ""), "")
+    return markdown_code_block(bin(decimal).replace("0b", ""), "JS")
 
 
 def iss():
     try:
+
         url = "http://api.open-notify.org/iss-now.json"
         response = urllib.request.urlopen(url)
         result = json.loads(response.read())
     except:
+        logging.error("fehler bei der abfrage der ISS Positions API")
         return "Fehler"
 
     try:
@@ -52,6 +60,7 @@ def iss():
         response2 = urllib.request.urlopen(url2)
         result2 = json.loads(response2.read())
     except:
+        logging.error("Fehler bei der Abfrage der Astronauten API")
         return "Fehler"
 
     asto = result2["number"]
@@ -75,7 +84,8 @@ def fetch_weather_data():
         response = urllib.request.urlopen(url)
         return json.loads(response.read())
 
-    except:
+    except Exception as e:
+        logging.error(f"Fehler beim Abfragen der Wetter AIP\n {e}")
         return ""
 
 
@@ -84,7 +94,7 @@ def wether():
 
     try:
 
-        if weather_data['cod'] == 200:
+        if weather_data["cod"] == 200:
             temp_in_kelvin = (weather_data['main']['temp'])
             temp_in_celsius = round(temp_in_kelvin - 273.15, 2)
             pressure = weather_data['main']['pressure']
@@ -103,8 +113,10 @@ def wether():
                     f"Du kannst {visibility}m weit aus dem fenster schuen")
 
         else:
+            logging.info("Fehler biem lesen der Wetterlange")
             return "Fehler biem lesen der Wetterlange"
-    except:
+    except Exception as e:
+        logging.error(f"Fehler beim auslesen der Wetter API\n {e}")
         return "Fehler"
 
 
@@ -120,7 +132,8 @@ def joke():
         response = requests.request("GET", url, headers=headers)
         data = json.loads(response.content)
 
-    except:
+    except Exception as e:
+        logging.error(f"Fehler bim auslesen der Joke API\n {e}")
         return "Fehler API no resoponse"
 
     mess1 = data['body'][0]['setup']
