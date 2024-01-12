@@ -1,11 +1,10 @@
 import asyncio
 import discord
-import ObstBotClass as ObstBot
+import Events.massages
 import config
-import logging
+from ObstBotClass import ObstBot
 
-
-bot = ObstBot.ObstBot()
+bot = ObstBot()
 
 
 @bot.event
@@ -14,15 +13,13 @@ async def on_raw_reaction_add(reaction: discord.RawReactionActionEvent):
 
 
 async def load():
-
     await bot.load_extension("Cogs.random")
 
 
 async def main():
     if __name__ == '__main__':
         await load()
-        handler = logging.FileHandler(filename='ObstBot/Log/discord.log', encoding='utf-8', mode='w')
-        await bot.start(config.getBotKey(), log_handler=handler)
+        await bot.start(config.getBotKey())
 
 
 asyncio.run(main())
