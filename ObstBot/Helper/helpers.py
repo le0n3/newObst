@@ -20,7 +20,6 @@ def translate_description(description):
         return description
 
 
-
 def random_rgb():
     r = random.randint(0, 255)
     g = random.randint(0, 255)
@@ -32,7 +31,7 @@ def random_hex():
     r = random.randint(0, 255)
     g = random.randint(0, 255)
     b = random.randint(0, 255)
-    return markdown_code_block('#{0:02x}{1:02x}{2:02x}'.format(r, g, b),"JS")
+    return markdown_code_block('#{0:02x}{1:02x}{2:02x}'.format(r, g, b), "JS")
 
 
 def decimal_to_hex(decimal_number):
@@ -47,20 +46,22 @@ def decimal_to_binary(decimal):
 def iss():
     try:
 
-        url = "http://api.open-notify.org/iss-now.json"
+        url = "https://api.open-notify.org/iss-now.json"
         response = urllib.request.urlopen(url)
         result = json.loads(response.read())
-    except:
-        logging.error("fehler bei der abfrage der ISS Positions API")
+
+    except Exception as e:
+        logging.error(f"fehler bei der abfrage der ISS Positions API \n {e}")
         return "Fehler"
 
     try:
 
-        url2 = "http://api.open-notify.org/astros.json"
+        url2 = "https://api.open-notify.org/astros.json"
         response2 = urllib.request.urlopen(url2)
         result2 = json.loads(response2.read())
-    except:
-        logging.error("Fehler bei der Abfrage der Astronauten API")
+
+    except Exception as e:
+        logging.error(f"Fehler bei der Abfrage der Astronauten API \n {e}")
         return "Fehler"
 
     asto = result2["number"]
@@ -79,15 +80,16 @@ def iss():
 
 def fetch_weather_data():
     try:
-        url = "https://api.openweathermap.org/data/2.5/weather?lat=49.94075694090485&lon=11.598245891210388&appid={}".format(
-            config.getOpenWeatherKey())
+        url = (
+            "https://api.openweathermap.org/data/2.5/weather?lat=49.94075694090485&lon=11.598245891210388&appid={}"
+            .format(
+                config.getOpenWeatherKey()))
         response = urllib.request.urlopen(url)
         return json.loads(response.read())
 
     except Exception as e:
         logging.error(f"Fehler beim Abfragen der Wetter AIP\n {e}")
         return ""
-
 
 def wether():
     weather_data = fetch_weather_data()
@@ -96,7 +98,7 @@ def wether():
 
         if weather_data["cod"] == 200:
             temp_in_kelvin = (weather_data['main']['temp'])
-            temp_in_celsius = round(temp_in_kelvin - 273.15, 2)
+            temp_in_celsius = round(float(temp_in_kelvin) - 273.15, 2)
             pressure = weather_data['main']['pressure']
             humidity = weather_data['main']['humidity']
             description = weather_data['weather'][0]['description']
