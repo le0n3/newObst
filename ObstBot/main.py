@@ -7,13 +7,13 @@ from ObstBotClass import ObstBot
 bot = ObstBot()
 
 
-@bot.event
-async def on_raw_reaction_add(reaction: discord.RawReactionActionEvent):
-    pass
-
-
 async def load():
-    await bot.load_extension("Cogs.random")
+    await bot.load_extension("Cogs.randomCommands")
+    await bot.load_extension("Cogs.zitateCommands")
+
+    await bot.load_extension("Events.massages")
+    await bot.load_extension("Events.reactions")
+
 
 
 async def main():
