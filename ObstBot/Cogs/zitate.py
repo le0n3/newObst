@@ -1,3 +1,0 @@
-#ToDO Zitate
-#   addZitat
-# 	Zitat
