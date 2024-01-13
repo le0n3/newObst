@@ -12,6 +12,7 @@ class reaction_add_Evenets(commands.Cog):
         print("Lodad reaction_add Events")
     @Cog.listener("on_raw_reaction_add")
     async def added_reaction(self, reaction: discord.RawReactionActionEvent):
+        pass
         ID= reaction.message_id
         message = await self.bot.get_channel(reaction.channel_id).fetch_message(ID)
         await message.channel.send("Reaction added")

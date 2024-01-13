@@ -15,15 +15,7 @@ class on_Messages_Evenets(commands.Cog):
     async def greet(self, message):
         Cheers = ["Hi", "hi", "Hello", "hello"]
         if message.content in Cheers:
-            await message.channel.send('Hello again')
-            await self.client.process_commands(message)
-
-    @Cog.listener("on_message")
-    async def agree(self, message):
-        Agree = ["yes", "yep", "ok"]
-        if message.content in Agree:
-            await message.channel.send('good')
-            await self.client.process_commands(message)
+            pass
 
 
 async def setup(bot):
