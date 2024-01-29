@@ -7,7 +7,6 @@ import logging
 from UI import addZitate
 import random as r
 
-
 class Zitate(commands.Cog):
     def __init__(self, bot):
         self.bot: commands.Bot = bot
