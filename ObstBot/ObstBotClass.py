@@ -12,7 +12,7 @@ class ObstBot(commands.Bot):
         logger.setLevel(logging.INFO)
 
         handler = logging.handlers.RotatingFileHandler(
-            filename='Log/discord.log',
+            filename='ObstBot/Log/discord.log',
             encoding='utf-8',
             maxBytes=16 * 1024,  # 32 MiB
             backupCount=5,  # Rotate through 5 files
