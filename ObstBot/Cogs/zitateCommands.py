@@ -3,6 +3,7 @@ from discord.ext import commands
 import logging
 from ObstBot.UI import addZitate
 import random as r
+from ObstBot.DiscordeLogging import DLogging
 
 
 class Zitate(commands.Cog):
@@ -17,7 +18,8 @@ class Zitate(commands.Cog):
     async def addZitat(self, ctx: discord.ext.commands.Context):
         await ctx.send("", view=addZitate.ZitatButtons(), delete_after=15)
         await ctx.message.delete()
-        logging.info(f"Random RGB wurde ausgeführt")
+        logging.info(f"Zitat wurde Hinzugefügt")
+        await DLogging.Info(f"Zitat wurde von {ctx.author.name} hinzugefügt", self.bot)
 
     @commands.command(brief='Random Zitat', description='Schreibet ein random Zitat in den Zitate Channel')
     async def Zitat(self, ctx: discord.ext.commands.Context):
@@ -33,6 +35,7 @@ class Zitate(commands.Cog):
         msg: discord.Message = r.choice(zitate_id)
 
         ctx.send(msg.content,delete_after=10)
+        await DLogging.Info(f"Random Zitat wurde von {ctx.author.name} aufgerufen", self.bot)
 
 
 async def setup(bot):
