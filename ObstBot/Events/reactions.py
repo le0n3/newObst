@@ -2,6 +2,7 @@ import discord
 from discord.ext import commands
 from discord.ext.commands import Cog
 from ObstBot.Datenbank import SocialCreditEdit
+from ObstBot.DiscordeLogging import DLogging
 
 
 class reaction_add_Evenets(commands.Cog):
@@ -22,9 +23,11 @@ class reaction_add_Evenets(commands.Cog):
         if chanel.guild:
             if reaction.emoji.name == 'socialCredit_p':
                 SocialCreditEdit(message.author, 10)
+                await DLogging.Info(f"{message.author.name} hast +10 Credits bekommen von {reaction.member.name}", self.bot)
 
             elif reaction.emoji.name == 'socialCredit_n':
                 SocialCreditEdit(message.author, -10)
+                await DLogging.Info(f"{message.author.name} hast -10 Credits bekommen von {reaction.member.name}",self.bot)
 
 
 async def setup(bot):

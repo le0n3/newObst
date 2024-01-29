@@ -2,6 +2,7 @@ import random
 import discord
 from discord.ext import commands
 from discord.ext.commands import Cog
+from ObstBot.DiscordeLogging import DLogging
 
 
 class on_Messages_Evenets(commands.Cog):
@@ -20,12 +21,14 @@ class on_Messages_Evenets(commands.Cog):
                 r = random.randint(1, 3)
                 if r == 1:
                     await message.channel.send("Chillig Chillig Chillig", delete_after=40)
+                    await DLogging.Info(f"Chillig wurde von {message.author.name} Getriggerd", self.bot)
 
     @Cog.listener("on_message")
     async def LOL(self, message: discord.message):
         if message.content == "LOL" and message.guild:
             if message.author != self.bot.user:
                 await message.channel.send("LOL !?!", delete_after=40)
+                await DLogging.Info(f"LOL wurde von {message.author.name} Getriggerd", self.bot)
 
     @Cog.listener("on_message")
     async def absimmung(self, message: discord.message):
@@ -34,6 +37,7 @@ class on_Messages_Evenets(commands.Cog):
             check = '\U00002705'
             await message.add_reaction(x)
             await message.add_reaction(check)
+            await DLogging.Info(f"Abstimmung wurde von {message.author.name} Getriggerd", self.bot)
 
 
 async def setup(bot):

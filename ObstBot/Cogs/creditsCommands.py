@@ -1,11 +1,12 @@
 import discord
 from discord.ext import commands
-import logging
+from ObstBot.DiscordeLogging import DLogging
 from ObstBot.Datenbank import *
 
 class Credits(commands.Cog):
     def __init__(self, bot):
         self.bot: commands.Bot = bot
+
 
     @commands.Cog.listener()
     async def on_ready(self):
@@ -17,13 +18,17 @@ class Credits(commands.Cog):
         await ctx.message.delete()
         if not CreditsCount.startswith("Error: "):
             await ctx.send(CreditsCount, delete_after=15)
+            await DLogging.Info(f"My Credits wurde von {ctx.author} ausgeführt",self.bot)
+        else:
+            await DLogging.Error(CreditsCount, self.bot)
+
 
     @commands.command(brief='Thop Three', description='Zeigt die Aktuellen Top 3')
     async def Top(self, ctx: discord.ext.commands.Context):
         mess = TopThree()
         await ctx.message.delete()
         await ctx.send(mess, delete_after=15)
-
+        await DLogging.Info(f"Top Three wurde von {ctx.author} ausgeführt", self.bot)
 
 
 async def setup(bot):

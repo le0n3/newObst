@@ -1,11 +1,11 @@
 import MySQLdb
 import discord
-
+import config
 try:
     connetion = MySQLdb.connect(
         host='Skillless.mysql.pythonanywhere-services.com',
         user='Skillless',
-        passwd='Yodix2014',
+        passwd=config.getDBPassword(),
         db='Skillless$discorde', connect_timeout=20)
     connetion.autocommit(True)
 
