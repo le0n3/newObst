@@ -29,7 +29,7 @@ class on_Messages_Evenets(commands.Cog):
 
     @Cog.listener("on_message")
     async def absimmung(self, message: discord.message):
-        if message.channel == self.bot.get_channel(978186732363210803) and message.author != self.bot.user:
+        if message.channel == self.bot.get_channel(978181949636112405) and message.author != self.bot.user:
             x = '\U0000274C'
             check = '\U00002705'
             await message.add_reaction(x)

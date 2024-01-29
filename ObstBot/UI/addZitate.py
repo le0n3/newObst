@@ -1,5 +1,4 @@
 import discord
-from discord import ui
 
 
 class ZitatLehrer(discord.ui.Modal, title='Lehrer Zitat'):
@@ -7,7 +6,7 @@ class ZitatLehrer(discord.ui.Modal, title='Lehrer Zitat'):
 
     async def on_submit(self, interaction: discord.Interaction):
         try:
-            channel: discord.TextChannel = interaction.client.get_channel(960954225792258108)
+            channel: discord.TextChannel = interaction.client.get_channel(953989554321371146)
             await channel.send(str(self.zitat))
             await interaction.response.send_message('Dein Zitat wurde Erfolgreich hinzugefügt!', ephemeral=True)
 
@@ -20,7 +19,7 @@ class ZitatSchuehler(discord.ui.Modal, title='Schüler Zitat'):
 
     async def on_submit(self, interaction: discord.Interaction):
         try:
-            channel: discord.TextChannel = interaction.client.get_channel(960954225792258108)
+            channel: discord.TextChannel = interaction.client.get_channel(961508892607676416)
             await channel.send(str(self.zitat))
             await interaction.response.send_message('Dein Zitat wurde Erfolgreich hinzugefügt!', ephemeral=True)
 
@@ -33,7 +32,7 @@ class ZitatBetrib(discord.ui.Modal, title='Betribs Zitat'):
     async def on_submit(self, interaction: discord.Interaction):
         try:
 
-            channel: discord.TextChannel = interaction.client.get_channel(960954225792258108)
+            channel: discord.TextChannel = interaction.client.get_channel(994539048368611418)
             await channel.send(str(self.zitat))
             await interaction.response.send_message('Dein Zitat wurde Erfolgreich hinzugefügt!', ephemeral=True)
 

@@ -1,3 +1,4 @@
+import threading
 from typing import List
 import discord
 from discord import ui
@@ -49,6 +50,7 @@ class TicTacToeButton(ui.Button['TicTacToe']):
                 child.disabled = True
 
             view.stop()
+
 
         await interaction.response.edit_message(content=content, view=view)
 
